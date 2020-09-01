@@ -1,0 +1,5 @@
+{
+  "port": 5001,
+  "jwtSecret": "butenin mern",
+  "mongoUri": "mongodb+srv://butenin:12qwaszx@cluster0.tc2he.azure.mongodb.net/app?retryWrites=true&w=majority"
+}
