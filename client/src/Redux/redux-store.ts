@@ -1,9 +1,11 @@
 import { authReducer } from './auth-page'
 import {Action, applyMiddleware, combineReducers, compose, createStore} from 'redux'
 import thunkMiddleware, {ThunkAction} from 'redux-thunk'
+import { appReducer } from './app'
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    app: appReducer
 })
 
 type RootReducerType = typeof rootReducer

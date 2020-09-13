@@ -28,8 +28,8 @@ export default HeaderContent
 const HeaderMenuAuth = () => {
     return (
         <Menu theme="dark" mode="horizontal">
-            <Menu.Item key="1">Sign In</Menu.Item>
-            <Menu.Item key="2">Sign Up</Menu.Item>
+            <Menu.Item key="1"><a href="/">Sign In</a></Menu.Item>
+            <Menu.Item key="2"><a href="/register">Sign Up</a></Menu.Item>
         </Menu>
     )
 }
@@ -37,6 +37,7 @@ const HeaderMenuContent: React.FC<HeaderMenuContentPropsType> = ({logoutBtn, ema
     return (
             <Menu theme="dark" mode="horizontal">
                 <Menu.Item key="1" onClick={logoutBtn}>Logout</Menu.Item>
+                <Menu.Item key="2">{email}</Menu.Item>
             </Menu>
     )
 }

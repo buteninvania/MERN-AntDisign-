@@ -2,18 +2,20 @@ const {Router} = require('express')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('config')
+const auth = require('../middleware/auth.middleware')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
 const router = Router()
 
 router.post(
     '/me',
+    auth,
     async (req,res) => {
         try {
-            const token = req.headers.authorization.split(' ')[1]
-            console.log(token)
+            res.json(req.body.email)
+            
         } catch (e) {
-
+            res.status(500).json({message: "Запрос на сервер не прошел"})
         }
     }
 )
@@ -43,7 +45,7 @@ router.post(
             const hashedPassword = await bcrypt.hash(password, 12)
             const user = new User({email, password: hashedPassword})
             await user.save()
-            res.status(201).json({data: {email: email, isAuth: true, message: 'Пользователь создан'}})
+            res.status(201).json({data: {email: email, password: password, isAuth: true, message: 'Пользователь создан'}})
 
         } catch (e) {
             res.status(500).json({message: "Запрос на сервер не прошел"})
@@ -78,9 +80,9 @@ router.post(
                 return res.status(400).json({message: 'Неверный пароль попробуйте снова'})
             }
             const token = jwt.sign(
-                {userId: user.id},
+                {email: user.email},
                 config.get('jwtSecret'),
-                {expiresIn: '1h'}
+                {expiresIn: '2h'}
             )
 
             res.json({ token, userId: user.id })

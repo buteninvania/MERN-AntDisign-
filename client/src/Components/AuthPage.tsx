@@ -15,7 +15,7 @@ export const AuthPage = () => {
             <Content className="site-layout-background" style={{padding: 24, margin: 0, minHeight: 700}}>
                 <div className="site-card-border-less-wrapper" style={{display: "flex", justifyContent: "center"}}>
                     <Card title="Login to your account" headStyle={{textAlign: "center"}} bordered={false} style={{width: 300}}>
-                        <SignInForm/>
+                        <SignInForm />
                     </Card>
                 </div>
             </Content>

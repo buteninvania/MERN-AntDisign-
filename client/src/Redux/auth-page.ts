@@ -6,6 +6,7 @@ const initialState = {
     email: null as string | null,
     message: null as string | null,
     userId: null as number | null,
+    isFetching: false
 }
 
 export const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -24,6 +25,11 @@ export const authReducer = (state = initialState, action: ActionsType): InitialS
             return {
                 ...state,email: null, userId: null, isAuth: false
             }
+        case "ButInProject/auth/SETISFETCHING":
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
         default:
             return state
     }
@@ -40,18 +46,27 @@ export const actions = {
     } as const),
     logout: () => ({
         type: "ButInProject/auth/LOGOUT",
+    } as const),
+    setIsFetching: (isFetching: boolean) => ({
+        type: "ButInProject/auth/SETISFETCHING",
+        isFetching: isFetching
     } as const)
 }
 
 export const checkAuth = (): ThunkType => async (dispatch) => {
     await authAPI.checkAuth()
         .then(res => {
-            debugger
+            if(!res) {
+                console.log('нет')
+            } else {
+                dispatch(actions.setAuthUserData(res, true, null))
+            }
         })
         .catch(err => console.log(err.response.data.message))
 }
 
 export const login = (email: string | null, password: string | null): ThunkType => async (dispatch) => {
+    dispatch(actions.setIsFetching(true))
     await authAPI.login(email, password)
         .then(res => {
             const {token, userId} = res
@@ -59,11 +74,13 @@ export const login = (email: string | null, password: string | null): ThunkType 
             dispatch(actions.setAuthUserData(email, true, userId))
         })
         .catch(err => console.log(err.response.data.message))
+    dispatch(actions.setIsFetching(false))
 }
 export const register = (email: string | null, password: string | null): ThunkType => async (dispatch) => {
     await authAPI.register(email, password)
         .then(res => {
-            dispatch(login(res.email, res.isAuth))
+            debugger
+            dispatch(login(res.email, res.password))
             dispatch(actions.setFeedback(res.message))
         })
         .catch(error => console.log(error.response.data.message))
