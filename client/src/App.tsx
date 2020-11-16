@@ -4,10 +4,10 @@ import 'antd/dist/antd.css'
 import './index.css'
 import {Layout} from 'antd'
 import HeaderContent from './Components/Header'
-import {useRoutes} from './routes'
+import {useRoutesAuth} from './routes'
 import {Provider, useDispatch, useSelector} from 'react-redux'
 import store from './Redux/redux-store'
-import {getEmail, isFetching} from './Redux/auth-selectors'
+import {getEmail, isFetching, isAuthSelector} from './Redux/auth-selectors'
 import {checkAuth} from './Redux/auth-page'
 
 const {Footer} = Layout
@@ -24,12 +24,11 @@ export const ButInProject = () => {
 
 const App = () => {
     const dispatch = useDispatch()
-    const token = localStorage.token
     useEffect( () => { dispatch( checkAuth() ) } )
     const email = useSelector(getEmail)
     const isInitialize = useSelector(isFetching)
-    const isAuth = !!token
-    const routes = useRoutes(isAuth, isInitialize)
+    const isAuth = useSelector(isAuthSelector)
+    const routes = useRoutesAuth(isAuth, isInitialize)
 
     return (
         <Layout>

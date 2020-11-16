@@ -1,5 +1,6 @@
 import {BaseThunkType, InferActionsTypes} from './redux-store'
 import {authAPI} from '../API/auth-api'
+import {actionsApp} from "./app";
 
 const initialState = {
     isAuth: false,
@@ -54,6 +55,7 @@ export const actions = {
 }
 
 export const checkAuth = (): ThunkType => async (dispatch) => {
+    dispatch(actions.setIsFetching(true))
     await authAPI.checkAuth()
         .then(res => {
             if(!res) {
@@ -63,6 +65,7 @@ export const checkAuth = (): ThunkType => async (dispatch) => {
             }
         })
         .catch(err => console.log(err.response.data.message))
+    dispatch(actions.setIsFetching(false))
 }
 
 export const login = (email: string | null, password: string | null): ThunkType => async (dispatch) => {

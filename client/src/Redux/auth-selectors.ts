@@ -6,3 +6,7 @@ export const getEmail = (state: AppStateType) => {
 export const isFetching = (state: AppStateType) => {
     return state.auth.isFetching
 }
+export const isAuthSelector = (state: AppStateType) => {
+    return state.auth.isAuth
+}
+

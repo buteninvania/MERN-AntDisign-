@@ -1,16 +1,17 @@
 import React from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
-import {DialogPage} from './Components/DialogPage'
+import {PersonalArea} from './Components/PersonalArea'
 import {AuthPage} from './Components/AuthPage'
 import {RegisterForm} from './Components/Forms'
-import {Preloader} from "./Components/Preloader";
+import {Preloader} from "./Components/Preloader"
+import { Employees } from './Components/Employees'
 
-export const useRoutes = (isAuth: boolean, isInitialize: boolean) => {
+export const useRoutesAuth = (isAuth: boolean, isInitialize: boolean) => {
     if (isAuth) {
         return (
             <Switch>
-                <Route path="/dialogs" component={DialogPage} exact/>
-                <Redirect to="/dialogs"/>
+                <Route path="/personal" component={PersonalArea} exact/>
+                <Redirect to="/personal"/>
             </Switch>
         )
     } else if (isInitialize) {
@@ -29,5 +30,18 @@ export const useRoutes = (isAuth: boolean, isInitialize: boolean) => {
             <Redirect to="/"/>
         </Switch>
     )
+}
 
+export const useRoutesPersonalArea = (isAuth: boolean, isInitialize: boolean) => {
+    if (isAuth) {
+        return (
+            <Switch>
+                <Route path="/personal/employees" component={Employees} exact/>
+            </Switch>
+        )
+    } else if (isInitialize) {
+        return (
+            <Preloader />
+        )
+    }
 }
