@@ -10,3 +10,13 @@ export const isAuthSelector = (state: AppStateType) => {
     return state.auth.isAuth
 }
 
+export const getFeedBackMessage = (state: AppStateType) => {
+    return state.auth.message
+}
+
+export const getFeedBackMode = (state: AppStateType) => {
+    return state.auth.feedBackMode
+}
+
+
+

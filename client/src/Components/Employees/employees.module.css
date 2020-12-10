@@ -1,0 +1,34 @@
+.item {
+    margin: 2%;
+    padding: 2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #d1e7df;
+    border-radius: 10px;
+    transition: .4s;
+    cursor: pointer;
+}
+
+.active {
+    background: aquamarine;
+}
+
+.employees__content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.employees__items {
+    width: 50%;
+}
+
+.employees__tasks {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.myItem {
+    display: none;
+}

@@ -37,15 +37,17 @@ router.post(
                     message: 'Не корректные данные при регистрации'
                 })
             }
-            const {email, password} = req.body
+            const {email, password, name, surname, position} = req.body
+
             const candidate = await User.findOne({email})
             if (candidate) {
                 return res.status(400).json({message: 'Пользователь с такой почтой существует'})
             }
             const hashedPassword = await bcrypt.hash(password, 12)
-            const user = new User({email, password: hashedPassword})
+            const user = new User({email, password: hashedPassword, name, surname, position})
+            console.log(user)
             await user.save()
-            res.status(201).json({data: {email: email, password: password, isAuth: true, message: 'Пользователь создан'}})
+            res.status(201).json({data: {email: email, password: password, name: name, surname: surname, position: position, isAuth: true, message: 'Пользователь создан'}})
 
         } catch (e) {
             res.status(500).json({message: "Запрос на сервер не прошел"})

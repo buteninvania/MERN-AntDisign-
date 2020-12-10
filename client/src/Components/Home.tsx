@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const Employees = () => {
+export const Home = () => {
 
     return (
        <div>
-         Сотрудники
+         Home
        </div>
     )
 }

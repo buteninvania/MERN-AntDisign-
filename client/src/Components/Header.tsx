@@ -2,7 +2,8 @@ import React from 'react'
 import {styles} from '../Styles/stylesLoginPage'
 import {Layout, Menu} from 'antd'
 import {useDispatch} from 'react-redux'
-import {actions} from '../Redux/auth-page'
+import {authActions} from '../Redux/auth-page'
+import {NavLink} from 'react-router-dom'
 
 const {Header} = Layout
 
@@ -10,7 +11,7 @@ const HeaderContent: React.FC<HeaderContentPropsType> = ({isAuth, email}) => {
     const dispatch = useDispatch()
     const logoutBtn = () => {
         localStorage.removeItem('token')
-        dispatch(actions.logout())
+        dispatch(authActions.logout())
     }
     return (
         <Header className="header" style={styles.headNav}>
@@ -28,8 +29,8 @@ export default HeaderContent
 const HeaderMenuAuth = () => {
     return (
         <Menu theme="dark" mode="horizontal">
-            <Menu.Item key="1"><a href="/">Sign In</a></Menu.Item>
-            <Menu.Item key="2"><a href="/register">Sign Up</a></Menu.Item>
+            <Menu.Item key="1"><NavLink to="/">Sign In</NavLink></Menu.Item>
+            <Menu.Item key="2"><NavLink to="/register">Sign Up</NavLink></Menu.Item>
         </Menu>
     )
 }
