@@ -1,6 +1,5 @@
 import {BaseThunkType, InferActionsTypes} from './redux-store'
 import {employeesAPI} from '../API/employees-api'
-import {authActions} from './auth-page'
 
 const initialState = {
     allEmployees: [],
@@ -26,14 +25,12 @@ export const actions = {
 }
 
 export const getAllEmployees = (): ThunkType => async (dispatch) => {
-    dispatch(authActions.setIsFetching(true))
     await employeesAPI.getAllEmployees()
         .then(res => {
             dispatch(actions.setEmployees(res))
         })
         .catch(err => console.log("Ошибка")
         )
-    dispatch(authActions.setIsFetching(false))
 }
 
 

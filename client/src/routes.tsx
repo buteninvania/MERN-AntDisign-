@@ -4,12 +4,17 @@ import {PersonalArea} from './Components/PersonalArea'
 import {AuthPage} from './Components/AuthPage'
 import {Preloader} from "./Components/Preloader"
 import {Employees} from './Components/Employees/Employees'
-import {Home} from './Components/Home'
+import {Home} from './Components/Home/Home'
 import {Dialogues} from './Components/Dialogues'
 import {RegisterPage} from './Components/RegisterPage'
+import {useSelector} from "react-redux";
+import {isAuthSelector, isFetching} from "./Redux/auth-selectors";
 
-export const useRoutesAuth = (isAuth: boolean, isInitialize: boolean) => {
 
+
+export const useRoutesAuth = () => {
+    const isInitialize = useSelector(isFetching)
+    const isAuth = useSelector(isAuthSelector)
     if (isInitialize) {
         return (
             <Preloader/>

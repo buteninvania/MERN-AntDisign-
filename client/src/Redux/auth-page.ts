@@ -9,6 +9,9 @@ const initialState = {
     userId: null as number | null,
     isFetching: false,
     feedBackMode: null as string | null,
+    name: null as string | null,
+    surname: null as string | null,
+    position: null as string | null,
 }
 
 export const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -30,7 +33,7 @@ export const authReducer = (state = initialState, action: ActionsType): InitialS
             }
         case "ButInProject/auth/LOGOUT":
             return {
-                ...state,email: null, userId: null, isAuth: false
+                ...state, email: null, userId: null, isAuth: false
             }
         case "ButInProject/auth/SETISFETCHING":
             return {
@@ -43,9 +46,9 @@ export const authReducer = (state = initialState, action: ActionsType): InitialS
 }
 
 export const authActions = {
-    setAuthUserData: (email: string | null, isAuth: boolean, userId: number | null) => ({
+    setAuthUserData: (email: string | null, isAuth: boolean, userId: number | null, name: string | null, surname: string | null, position: string | null ) => ({
         type: "ButInProject/auth/SET-USER-DATA",
-        values: {email, isAuth, userId}
+        values: {email, isAuth, userId, name, surname, position}
     } as const),
     setFeedback: (message: string | null) => ({
         type: "ButInProject/auth/SET-FEEDBACK-MESSAGE",
@@ -67,13 +70,13 @@ export const authActions = {
 export const checkAuth = (): ThunkType => async (dispatch) => {
     dispatch(authActions.setIsFetching(true))
     await authAPI.checkAuth()
-        .then(res => {
-            if(!res) {
+        .then((res: any) => {
+            if (!res) {
                 console.log('нет')
             } else {
                 dispatch(authActions.setFeedBackMode("success"))
                 dispatch(authActions.setFeedback("Вы в системе!"))
-                dispatch(authActions.setAuthUserData(res, true, null))
+                dispatch(authActions.setAuthUserData(res.email, true, null, res.name, res.surname, res.position))
             }
         })
         .catch(err => console.log("Ошибка сервера")
@@ -87,9 +90,9 @@ export const login = (email: string | null, password: string | null): ThunkType 
         .then(res => {
             dispatch(authActions.setFeedBackMode("success"))
             dispatch(authActions.setFeedback("Вы успешно авторизовались"))
-            const {token, userId} = res
+            const {token, userId, name, surname, position} = res
             localStorage.setItem('token', token)
-            dispatch(authActions.setAuthUserData(email, true, userId))
+            dispatch(authActions.setAuthUserData(email, true, userId, name, surname, position))
         })
         .catch(err => {
             dispatch(authActions.setFeedBackMode("warning"))
@@ -98,9 +101,10 @@ export const login = (email: string | null, password: string | null): ThunkType 
     dispatch(authActions.setIsFetching(false))
 }
 export const register = (email: string | null, password: string | null, name: string | null, surname: string | null, position: string | null): ThunkType => async (dispatch) => {
+    dispatch(authActions.setIsFetching(true))
     await authAPI.register(email, password, name, surname, position)
-        .then(res => {
-            debugger
+        .then((res: any) => {
+           dispatch(login(res.email, res.password))
         })
         .catch(error => console.log(error.response.data.message))
 }

@@ -5,11 +5,9 @@ import './index.css'
 import {Layout} from 'antd'
 import HeaderContent from './Components/Header'
 import {useRoutesAuth} from './routes'
-import {Provider, useDispatch, useSelector} from 'react-redux'
-import store from './Redux/redux-store'
-import {getEmail, isFetching, isAuthSelector, getFeedBackMessage, getFeedBackMode} from './Redux/auth-selectors'
+import {Provider, useDispatch} from 'react-redux'
 import {checkAuth} from './Redux/auth-page'
-import {useFeedBackMessage} from './Hooks/feedBackHook'
+import store from './Redux/redux-store'
 
 const {Footer} = Layout
 
@@ -23,25 +21,21 @@ export const ButInProject = () => {
     )
 }
 
+
 const App = () => {
 
+    const routes = useRoutesAuth()
     const dispatch = useDispatch()
-    useEffect( () => { dispatch( checkAuth() ) } ,[])
-    const email = useSelector(getEmail)
-    const isInitialize = useSelector(isFetching)
-    const isAuth = useSelector(isAuthSelector)
-    const routes = useRoutesAuth(isAuth, isInitialize)
-    const message = useSelector(getFeedBackMessage)
-    const mode = useSelector(getFeedBackMode)
-    const feedBackMessage = useFeedBackMessage(message, mode)
-
-    return (
-        <Layout>
-            {feedBackMessage}
-            <HeaderContent isAuth={isAuth} email={email}/>
-            {routes}
-            <Footer style={{height: '80px', textAlign: 'center'}}>ButInProject ©2020 PersonalArea</Footer>
-        </Layout>
-    )
+    useEffect(() => {
+        dispatch(checkAuth())
+    }, [])
+    console.log("render")
+        return (
+            <Layout>
+                <HeaderContent />
+                {routes}
+                <Footer style={{height: '80px', textAlign: 'center'}}>ButInProject ©2020 PersonalArea</Footer>
+            </Layout>
+        )
 }
 

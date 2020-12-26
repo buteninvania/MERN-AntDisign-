@@ -1,6 +1,6 @@
 import React from 'react'
 import {Breadcrumb, Card, Layout} from 'antd'
-import {RegisterForm, SignInForm} from './Forms'
+import {RegisterForm} from './Forms'
 
 const {Content} = Layout
 

@@ -103,22 +103,14 @@ export const RegisterForm = () => {
             <Select
                 id="position"
                 {...formik.getFieldProps('position')}
+                onChange={(value => formik.setFieldValue("position", value))}
                 showSearch
                 style={{width: "100%", display: "flex"}}
-                placeholder="Select a person"
                 optionFilterProp="children"
-                // onChange={onChange}
-                // onFocus={onFocus}
-                // onBlur={onBlur}
-                // onSearch={onSearch}
-                // filterOption={(input, option) =>
-                //     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                // }
             >
                 <Option value="owner">Owner</Option>
-                <Option value="frontend">Jack</Option>
-                <Option value="backend">Lucy</Option>
-                <Option value="tom">Tom</Option>
+                <Option value="frontend">Frontend</Option>
+                <Option value="backend">Backend</Option>
             </Select>
             {formik.touched.email && formik.errors.email ? <Alert message={formik.errors.email} type="error"/> : null}
             <label htmlFor="password">Password</label>

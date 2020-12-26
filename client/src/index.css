@@ -13,3 +13,7 @@
 .site-card-border-less-wrapper {
     padding: 20px;
 }
+
+ul {
+    list-style: none;
+}

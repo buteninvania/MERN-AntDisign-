@@ -1,13 +1,16 @@
 import React from 'react'
 import {styles} from '../Styles/stylesLoginPage'
 import {Layout, Menu} from 'antd'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {authActions} from '../Redux/auth-page'
 import {NavLink} from 'react-router-dom'
+import {getEmail, isAuthSelector} from '../Redux/auth-selectors'
 
 const {Header} = Layout
 
-const HeaderContent: React.FC<HeaderContentPropsType> = ({isAuth, email}) => {
+const HeaderContent = () => {
+    const email = useSelector(getEmail)
+    const isAuth = useSelector(isAuthSelector)
     const dispatch = useDispatch()
     const logoutBtn = () => {
         localStorage.removeItem('token')
@@ -46,8 +49,4 @@ const HeaderMenuContent: React.FC<HeaderMenuContentPropsType> = ({logoutBtn, ema
 type HeaderMenuContentPropsType = {
     logoutBtn(): void,
     email: null | string
-}
-type HeaderContentPropsType = {
-    isAuth: boolean,
-    email: string | null
 }

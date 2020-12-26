@@ -17,11 +17,14 @@ export const useFeedBackMessage = (messageText: string | null, mode: string | nu
 
     if (mode && messageText) {
         if(mode == "error") {
-            message.error(messageText);
+            // message.error(messageText);
+            error(messageText)
         } else if (mode == "success") {
-            message.success(messageText);
+            // message.success(messageText);
+            success(messageText)
         }else if (mode == "warning") {
-            message.warning(messageText);
+            // message.warning(messageText);
+            warning(messageText)
         }
     }
 

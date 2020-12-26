@@ -12,7 +12,10 @@ router.post(
     auth,
     async (req,res) => {
         try {
-            res.json(req.body.email)
+            const email = req.body.email
+
+            const user = await User.findOne({email})
+            res.json({ email, userId: user.id, name: user.name, surname: user.surname, position: user.position })
             
         } catch (e) {
             res.status(500).json({message: "Запрос на сервер не прошел"})
@@ -45,7 +48,6 @@ router.post(
             }
             const hashedPassword = await bcrypt.hash(password, 12)
             const user = new User({email, password: hashedPassword, name, surname, position})
-            console.log(user)
             await user.save()
             res.status(201).json({data: {email: email, password: password, name: name, surname: surname, position: position, isAuth: true, message: 'Пользователь создан'}})
 
@@ -87,7 +89,7 @@ router.post(
                 {expiresIn: '2h'}
             )
 
-            res.json({ token, userId: user.id })
+            res.json({ token, userId: user.id, name: user.name, surname: user.surname, position: user.position })
 
         } catch (e) {
             res.status(500).json({message: "Запрос на сервер не прошел"})
