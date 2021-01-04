@@ -20,12 +20,11 @@
     display: flex;
     align-items: center;
     font-size: 20px;
-    background: bisque;
 }
 
 .home__content {
-    background: burlywood;
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 6fr;
 }
 
 .home__projects {

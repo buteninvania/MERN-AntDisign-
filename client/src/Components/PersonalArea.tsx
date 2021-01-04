@@ -18,9 +18,9 @@ export const PersonalArea = () => {
         <Layout>
             <Sider width={200} className="site-layout-background">
                 <Menu mode="inline" defaultSelectedKeys={["1"]} style={{height: '100%', borderRight: 0}}>
-                    <Menu.Item key="1"><NavLink to="/personal">Home</NavLink></Menu.Item>
-                    <Menu.Item key="2"><NavLink to="/personal/employees">Employees</NavLink></Menu.Item>
-                    <Menu.Item key="3"><NavLink to="/personal/dialogues">Dialogues</NavLink></Menu.Item>
+                    <Menu.Item key="1"><NavLink to="/home">Home</NavLink></Menu.Item>
+                    <Menu.Item key="2"><NavLink to="/employees">Employees</NavLink></Menu.Item>
+                    <Menu.Item key="3"><NavLink to="/dialogues">Dialogues</NavLink></Menu.Item>
                 </Menu>
             </Sider>
             <Layout style={{padding: '0 24px 0 24px'}}>

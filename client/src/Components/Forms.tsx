@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 import {useDispatch} from 'react-redux'
 import { login, register } from '../Redux/auth-page'
 import {NavLink} from 'react-router-dom'
+import {addProjectsThunk} from '../Redux/projects-page'
 
 const { Option } = Select
 
@@ -128,6 +129,46 @@ export const RegisterForm = () => {
     )
 }
 
+export const AddProject = () => {
+    const dispatch = useDispatch()
+    const submit = (values: AddProjectsValuesType) => {
+        const {name, type} = values
+        dispatch(addProjectsThunk(name, type))
+    }
+
+    const formik = useFormik({
+        initialValues: {name: '', type: ''},
+        onSubmit: (values: AddProjectsValuesType) => {
+            submit(values)
+        },
+    })
+    return (
+        <form onSubmit={formik.handleSubmit}>
+            <label htmlFor="name">Название проекта</label>
+            <Input id="name"
+                   type="text"
+                   allowClear={true}
+                   {...formik.getFieldProps('name')}
+            />
+            {formik.touched.name && formik.errors.name ? <Alert message={formik.errors.name} type="error"/> : null}
+            <Select
+                id="type"
+                {...formik.getFieldProps('type')}
+                onChange={(value => formik.setFieldValue("type", value))}
+                showSearch
+                style={{width: "100%", display: "flex"}}
+                optionFilterProp="children"
+            >
+                <Option value="shop">Онлайн магазины</Option>
+                <Option value="layout">Верстка</Option>
+                <Option value="server">Backend</Option>
+                <Option value="fullstack">Fullstack</Option>
+            </Select>
+        </form>
+    )
+
+}
+
 interface FormsValues {
     email: string | null,
     password: string | null
@@ -139,4 +180,9 @@ interface RegisterFormsValues {
     name: string | null,
     surname: string | null,
     position: string | null
+}
+
+interface AddProjectsValuesType {
+    name: string | null,
+    type: string | null
 }

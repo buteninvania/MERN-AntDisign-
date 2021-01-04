@@ -3,11 +3,13 @@ import {Action, applyMiddleware, combineReducers, compose, createStore} from 're
 import thunkMiddleware, {ThunkAction} from 'redux-thunk'
 import { appReducer } from './app'
 import {employeesReducer} from './employees-page'
+import {projectsReducer} from './projects-page'
 
 const rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer,
-    employees: employeesReducer
+    employees: employeesReducer,
+    projects: projectsReducer
 })
 
 type RootReducerType = typeof rootReducer

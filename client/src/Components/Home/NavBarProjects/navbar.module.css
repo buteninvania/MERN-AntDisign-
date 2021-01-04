@@ -1,0 +1,8 @@
+.home__navbar {
+    display: flex;
+    flex-direction: column;
+}
+
+.home__navbar a {
+    color: black;
+}
