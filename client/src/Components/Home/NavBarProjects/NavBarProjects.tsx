@@ -14,19 +14,17 @@ import {AddProject} from '../../Forms'
 export const NavBarProjects = () => {
 
     const projects = useSelector(getProjectsSelector)
-
     const dispatch = useDispatch()
-
     useEffect(() => {
         dispatch(getProjectsThunk())
     }, [])
 
+    console.log("Render NavBarProjects")
+
     return (
         <div className={n.home__navbar}>
             <div>Проекты</div>
-            {(projects.length > 0)
-                ?  <NavBarProjectsMenu projects={projects}/>
-                : <Preloader/>}
+            <NavBarProjectsMenu projects={projects}/>
         </div>
     )
 }
@@ -36,7 +34,7 @@ const NavBarProjectsMenu = ({projects}) => {
 
     return (
         <Menu>
-            {projects.map((i, index) => <MenuItem key={index}><NavLink to={`/home/${i._id}`}>{i.name}</NavLink></MenuItem> )}
+            {projects.map((i, index) => <MenuItem key={index}><NavLink to={`/home/${i.id}`}>{i.name}</NavLink></MenuItem> )}
             <MenuItem key={projects.length} icon={<PlusOutlined />} onClick={()=>setVisibleModal(true)}>Добавить проект</MenuItem>
             <ModalAddProject visible={visibleModal} setVisible={setVisibleModal}/>
         </Menu>
@@ -45,13 +43,9 @@ const NavBarProjectsMenu = ({projects}) => {
 
 const ModalAddProject = ({visible, setVisible}) => {
 
-    const onModal = (bool) => {
-
-    }
-
     return (
-        <Modal title="Добавить проект" centered visible={visible} width={1000} onOk={() => onModal(false)}>
-            <AddProject />
+        <Modal title="Добавить проект" centered visible={visible} width={500} footer={null} onCancel={() => setVisible(false)}>
+            <AddProject setVisible={setVisible}/>
         </Modal>
     )
 }

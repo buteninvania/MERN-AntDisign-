@@ -4,7 +4,7 @@ import {PersonalArea} from './Components/PersonalArea'
 import {AuthPage} from './Components/AuthPage'
 import {Preloader} from "./Components/Preloader"
 import {Employees} from './Components/Employees/Employees'
-import {HomePage} from './Components/Home/HomePage]'
+import {HomePage} from './Components/Home/HomePage'
 import {Dialogues} from './Components/Dialogues'
 import {RegisterPage} from './Components/RegisterPage'
 import {useSelector} from 'react-redux'

@@ -129,11 +129,13 @@ export const RegisterForm = () => {
     )
 }
 
-export const AddProject = () => {
+//Форма создания проекта
+export const AddProject = ({setVisible}) => {
     const dispatch = useDispatch()
     const submit = (values: AddProjectsValuesType) => {
         const {name, type} = values
         dispatch(addProjectsThunk(name, type))
+        setVisible(false)
     }
 
     const formik = useFormik({
@@ -142,6 +144,7 @@ export const AddProject = () => {
             submit(values)
         },
     })
+
     return (
         <form onSubmit={formik.handleSubmit}>
             <label htmlFor="name">Название проекта</label>
@@ -164,9 +167,10 @@ export const AddProject = () => {
                 <Option value="server">Backend</Option>
                 <Option value="fullstack">Fullstack</Option>
             </Select>
+            <Button type="primary" htmlType="submit">Submit</Button>
+            <Button type="ghost" onClick={() => setVisible(false)}>Cancel</Button>
         </form>
     )
-
 }
 
 interface FormsValues {

@@ -14,6 +14,10 @@ export const getUser = (state: AppStateType) => {
     return user
 }
 
+export const getMyPosition = (state: AppStateType) => {
+    return state.auth.position
+}
+
 export const isFetching = (state: AppStateType) => {
     return state.auth.isFetching
 }

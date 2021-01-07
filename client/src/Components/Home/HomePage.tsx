@@ -3,12 +3,14 @@ import {useSelector} from 'react-redux'
 import {getUser} from '../../Redux/auth-selectors'
 import h from '../Home/home.module.css'
 import {Route} from 'react-router-dom'
-import {Projects} from './Projects/Projects'
-import {NavBarProjects} from "./NavBarProjects/NavBarProjects";
+import {Project} from './Projects/Projects'
+import {NavBarProjects} from './NavBarProjects/NavBarProjects'
 
 export const HomePage = ({match}) => {
 
     const user = useSelector(getUser)
+
+    console.log("render HomePage")
 
     return (
         <div className={h.home}>
@@ -21,7 +23,7 @@ export const HomePage = ({match}) => {
             </div>
             <div className={h.home__content}>
                 <NavBarProjects/>
-                <Route path={match.url + "/:id"} component={Projects} />
+                <Route path={match.url + "/:id"} component={Project} />
             </div>
         </div>
     )
